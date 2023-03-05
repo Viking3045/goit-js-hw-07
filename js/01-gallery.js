@@ -23,12 +23,19 @@ galleryItems.forEach(galleryItem => {
 
 gallery.append(...imageElement)
 gallery.addEventListener('click', e => {
-    // blockStandartAction(e)
+     e.preventDefault()
     if (e.target.nodeName !== "IMG") 
         return;
     const instance = basicLightbox.create(`
     <img src="${e.target.dataset.source}" width="800" height="600">
 `)
 
-instance.show()
+    instance.show()
+    gallery.addEventListener('keydown', (event) => {
+    if (event.code !== "Escape") {
+        return;
+    }
+      instance.close()
 })
+})
+
